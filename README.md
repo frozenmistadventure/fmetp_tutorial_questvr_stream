@@ -1,5 +1,9 @@
 # fmetp_tutorial_questvr_stream
 
+full tutorial video on Youtube: https://youtu.be/KXmDvOG0hfo
+
+![fmetp_tutorial_oculus_test1](https://user-images.githubusercontent.com/59368610/116001424-f2f45900-a626-11eb-90d4-4d0d96ee1937.gif)
+
 <STRONG>fmetp_tutorial_questvr_stream</STRONG> is a Oculus VR Streaming tutorial template for <STRONG>FMETP STREAM</STRONG>.
 
 <STRONG>FMETP STREAM</STRONG> share your Game View to any platforms.
