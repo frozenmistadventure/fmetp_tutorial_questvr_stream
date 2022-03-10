@@ -56,6 +56,16 @@ public class OVRPlayerController : MonoBehaviour
 	public bool SnapRotation = true;
 
 	/// <summary>
+	/// [Deprecated] When enabled, snap rotation will happen about the guardian rather
+	/// than the player/camera viewpoint.
+	/// </summary>
+	[Tooltip("[Deprecated] When enabled, snap rotation will happen about the center of the " +
+		"guardian rather than the center of the player/camera viewpoint. This (legacy) " +
+		"option should be left off except for edge cases that require extreme behavioral " +
+		"backwards compatibility.")]
+	public bool RotateAroundGuardianCenter = false;
+
+	/// <summary>
 	/// How many fixed speeds to use with linear movement? 0=linear control
 	/// </summary>
 	[Tooltip("How many fixed speeds to use with linear movement? 0=linear control")]
@@ -213,12 +223,17 @@ public class OVRPlayerController : MonoBehaviour
 			else
 				return;
 		}
+
+		//todo: enable for Unity Input System
+#if ENABLE_LEGACY_INPUT_MANAGER
+
 		//Use keys to ratchet rotation
 		if (Input.GetKeyDown(KeyCode.Q))
 			buttonRotation -= RotationRatchet;
 
 		if (Input.GetKeyDown(KeyCode.E))
 			buttonRotation += RotationRatchet;
+#endif
 	}
 
 	protected virtual void UpdateController()
@@ -312,6 +327,8 @@ public class OVRPlayerController : MonoBehaviour
 
 	public virtual void UpdateMovement()
 	{
+		//todo: enable for Unity Input System
+#if ENABLE_LEGACY_INPUT_MANAGER
 		if (HaltUpdateMovement)
 			return;
 
@@ -405,7 +422,7 @@ public class OVRPlayerController : MonoBehaviour
 
 		if (EnableRotation)
 		{
-			Vector3 euler = transform.rotation.eulerAngles;
+			Vector3 euler = RotateAroundGuardianCenter ? transform.rotation.eulerAngles : Vector3.zero;
 			float rotateInfluence = SimulationRate * Time.deltaTime * RotationAmount * RotationScaleMultiplier;
 
 			bool curHatLeft = OVRInput.Get(OVRInput.Button.PrimaryShoulder);
@@ -470,8 +487,16 @@ public class OVRPlayerController : MonoBehaviour
 				euler.y += secondaryAxis.x * rotateInfluence;
 			}
 
-			transform.rotation = Quaternion.Euler(euler);
+			if (RotateAroundGuardianCenter)
+			{
+				transform.rotation = Quaternion.Euler(euler);
+			}
+			else
+			{
+				transform.RotateAround(CameraRig.centerEyeAnchor.position, Vector3.up, euler.y);
+			}
 		}
+#endif
 	}
 
 
