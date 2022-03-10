@@ -17,3 +17,7 @@ Adding Live Stream feature into your apps with ease!
 - Asset Store Link: https://assetstore.unity.com/packages/slug/176021
 
 Support: thelghome@gmail.com
+
+Updates: it runs at 90 FPS in game during the streaming in Unity2021.2.13f1 with Oculus SDK v37.
+![framerate_test-quest2](https://user-images.githubusercontent.com/59368610/157647896-b9e00e26-5725-47ec-acf3-323cd73b3e7a.jpg)
+
