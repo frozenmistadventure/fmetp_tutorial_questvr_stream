@@ -9,7 +9,7 @@
 <STRONG>FMETP STREAM</STRONG> share your Game View to any platforms.
 Adding Live Stream feature into your apps with ease!
 
-- Asset Store Link: https://assetstore.unity.com/packages/slug/143080
+- Asset Store Link: https://assetstore.unity.com/packages/slug/202537
 
 
 <STRONG>FM Polygon Japan</STRONG> is used for tutorial video only. You may check it out if you are interested.
