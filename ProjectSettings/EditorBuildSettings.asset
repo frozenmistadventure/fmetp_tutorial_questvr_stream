@@ -5,15 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/1_FMNetwork(LocalUDP)/QuestVR_StreamSender(UDP).unity
     guid: 4f152d1badb1d4aaaa298865a708bcc2
-  - enabled: 1
+  - enabled: 0
+    path: Assets/Scenes/2_FMWebSocket(InternetStream)/Demo1_WebSocket/QuestVR_StreamSender(WebSocket).unity
+    guid: 594031eb0953b4a84adc8867053070b3
+  - enabled: 0
     path: Assets/Scenes/2_FMWebSocket(InternetStream)/Demo2_AutoIPDiscoveryWithFMNetwork/QuestVR_StreamSender(Auto_IP).unity
     guid: c74adedcf7a6045c6b89f6a78e7ddb58
-  - enabled: 0
-    path: Assets/Scenes/QuestVR_PointCloud.unity
-    guid: 0c7df091e19d84f1791d9c8cd415ca0a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6926076a3c3334053b41fa38d18736be, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3beb8dff091ba4f3abde5dfbe9999e96, type: 2}
