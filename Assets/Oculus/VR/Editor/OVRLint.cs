@@ -1,22 +1,26 @@
-/************************************************************************************
-Copyright : Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
-
-Licensed under the Oculus Master SDK License Version 1.0 (the "License"); you may not use
-the Utilities SDK except in compliance with the License, which is provided at the time of installation
-or download, or which otherwise accompanies this software in either electronic or hard copy form.
-
-You may obtain a copy of the License at
-https://developer.oculus.com/licenses/oculusmastersdk-1.0/
-
-Unless required by applicable law or agreed to in writing, the Utilities SDK distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
-ANY KIND, either express or implied. See the License for the specific language governing
-permissions and limitations under the License.
-************************************************************************************/
+/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
+ *
+ * Licensed under the Oculus SDK License Agreement (the "License");
+ * you may not use the Oculus SDK except in compliance with the License,
+ * which is provided at the time of installation or download, or which
+ * otherwise accompanies this software in either electronic or hard copy form.
+ *
+ * You may obtain a copy of the License at
+ *
+ * https://developer.oculus.com/licenses/oculussdk/
+ *
+ * Unless required by applicable law or agreed to in writing, the Oculus SDK
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 #if UNITY_EDITOR
 
-#if USING_XR_MANAGEMENT && USING_XR_SDK_OCULUS
+#if USING_XR_MANAGEMENT && (USING_XR_SDK_OCULUS || USING_XR_SDK_OPENXR)
 #define USING_XR_SDK
 #endif
 
@@ -374,8 +378,13 @@ public class OVRLint : EditorWindow
 		}
 
 #if USING_XR_SDK_OPENXR
-		AddFix(eRecordType.StaticCommon, -9999, "Unity OpenXR Plugin Detected", "Unity OpenXR Plugin should NOT be used in production when developing Oculus apps. Please uninstall the package, and install the Oculus XR Plugin from the Package Manager.\nWhen using the Oculus XR Plugin, you can enable OpenXR backend for Oculus through the 'Oculus -> Tools -> OpenXR' menu.", null, null, false);
+		AddFix(eRecordType.StaticCommon, -9999, "Unity OpenXR Plugin Detected", "Unity OpenXR Plugin should NOT be used in production when developing Oculus apps. Please uninstall the package, and install the Oculus XR Plugin from the Package Manager.\nWhen using the Oculus XR Plugin, you can enable OpenXR backend for Oculus Plugin through the 'Oculus -> Tools -> OVR Utilities Plugin' menu.", null, null, false);
 #endif
+
+		if (!OVRPluginUpdater.IsOVRPluginOpenXRActivated() || OVRPluginUpdater.IsOVRPluginUnityProvidedActivated())
+		{
+			AddFix(eRecordType.StaticCommon, -9999, "Set OVRPlugin to Oculus Utilities-provided (OpenXR backend)", "Oculus recommends using OpenXR plugin provided with its Oculus Utilities package.\nYou can enable OpenXR backend for Oculus through the 'Oculus -> Tools -> OVR Utilities Plugin' menu.", null, null, false);
+		}
 
 		if (QualitySettings.anisotropicFiltering != AnisotropicFiltering.Enable && QualitySettings.anisotropicFiltering != AnisotropicFiltering.ForceEnable)
 		{
@@ -640,6 +649,17 @@ public class OVRLint : EditorWindow
 				}
 			}, null, false, "Fix");
 		}
+		for (int i = 0; i < overlays.Length; i++)
+		{
+			if (overlays[i].useLegacyCubemapRotation)
+			{
+				AddFix(eRecordType.StaticCommon, "Fix Cubemap Orientation", "Legacy cubemap rotation will be deprecated in the future. Please fix the cubemap texture instead.", delegate (UnityEngine.Object obj, bool last, int selected)
+				{
+					OVROverlay thisOverlay = (OVROverlay)obj;
+					thisOverlay.useLegacyCubemapRotation = false;
+				}, overlays[i], false, "Remove Legacy Rotation");
+			}
+		}
 
 		var splashScreen = PlayerSettings.virtualRealitySplashScreen;
 		if (splashScreen != null)
@@ -712,23 +732,23 @@ public class OVRLint : EditorWindow
 				}, null, false, "Fix");
 		}
 
-		// Check that the minSDKVersion meets requirement, 23 for Quest
-		AndroidSdkVersions recommendedAndroidMinSdkVersion = AndroidSdkVersions.AndroidApiLevel23;
-		if ((int)PlayerSettings.Android.minSdkVersion < (int)recommendedAndroidMinSdkVersion)
+		// Check that the minSDKVersion meets requirement, 29 for Quest
+		AndroidSdkVersions recommendedAndroidMinSdkVersion = AndroidSdkVersions.AndroidApiLevel29;
+		if ((int)PlayerSettings.Android.minSdkVersion != (int)recommendedAndroidMinSdkVersion)
 		{
-			AddFix(eRecordType.StaticAndroid, "Set Min Android API Level", "Please require at least API level " + (int)recommendedAndroidMinSdkVersion, delegate (UnityEngine.Object obj, bool last, int selected)
+			AddFix(eRecordType.StaticAndroid, "Set Min Android API Level", "Oculus Quest recommend setting minumum API level to " + (int)recommendedAndroidMinSdkVersion, delegate (UnityEngine.Object obj, bool last, int selected)
 			{
 				PlayerSettings.Android.minSdkVersion = recommendedAndroidMinSdkVersion;
 			}, null, false, "Fix");
 		}
 
-		// Check that compileSDKVersion meets minimal version 26 as required for Quest's headtracking feature
+		// Check that compileSDKVersion meets minimal version 26 as required for Quest's headtracking feature. Recommend 29 to match the MinSdkVersion
 		// Unity Sets compileSDKVersion in Gradle as the value used in targetSdkVersion
-		AndroidSdkVersions requiredAndroidTargetSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
+		AndroidSdkVersions requiredAndroidTargetSdkVersion = AndroidSdkVersions.AndroidApiLevel29;
 		if (OVRDeviceSelector.isTargetDeviceQuestFamily &&
-			(int)PlayerSettings.Android.targetSdkVersion < (int)requiredAndroidTargetSdkVersion)
+			(int)PlayerSettings.Android.targetSdkVersion != (int)requiredAndroidTargetSdkVersion)
 		{
-			AddFix(eRecordType.StaticAndroid, "Set Android Target SDK Level", "Oculus Quest apps require at least target API level " +
+			AddFix(eRecordType.StaticAndroid, "Set Android Target SDK Level", "Oculus Quest apps recommend setting target API level to " +
 				(int)requiredAndroidTargetSdkVersion, delegate (UnityEngine.Object obj, bool last, int selected)
 			{
 				PlayerSettings.Android.targetSdkVersion = requiredAndroidTargetSdkVersion;
@@ -754,6 +774,16 @@ public class OVRLint : EditorWindow
 			}, null, false, "Fix");
 		}
 
+#if USING_XR_SDK
+		if (OVRPluginUpdater.IsOVRPluginOpenXRActivated() && PlayerSettings.colorSpace != ColorSpace.Linear)
+		{
+			AddFix(eRecordType.StaticAndroid, "Set Color Space to Linear", "Oculus Utilities Plugin with OpenXR only supports linear lighting.",
+				delegate (UnityEngine.Object obj, bool last, int selected)
+			{
+				PlayerSettings.colorSpace = ColorSpace.Linear;
+			}, null, false, "Fix");
+		}
+#endif
 
 		if (RenderSettings.skybox)
 		{
@@ -883,21 +913,7 @@ public class OVRLint : EditorWindow
 			AddFix(eRecordType.RuntimeAndroid, "Graphics Memory", "Please use less than 1GB of vertex and texture memory.", null, null, false);
 		}
 
-		if (OVRManager.cpuLevel < 0 || OVRManager.cpuLevel > 3)
-		{
-			AddFix(eRecordType.RuntimeAndroid, "Optimize CPU level", "For battery life, please use a safe CPU level.", delegate (UnityEngine.Object obj, bool last, int selected)
-			{
-				OVRManager.cpuLevel = 2;
-			}, null, false, "Set to CPU2");
-		}
-
-		if (OVRManager.gpuLevel < 0 || OVRManager.gpuLevel > 3)
-		{
-			AddFix(eRecordType.RuntimeAndroid, "Optimize GPU level", "For battery life, please use a safe GPU level.", delegate (UnityEngine.Object obj, bool last, int selected)
-			{
-				OVRManager.gpuLevel = 2;
-			}, null, false, "Set to GPU2");
-		}
+		// Remove the CPU/GPU level test, which won't work in Unity Editor
 
 		if (UnityStats.triangles > 100000 || UnityStats.vertices > 100000)
 		{
