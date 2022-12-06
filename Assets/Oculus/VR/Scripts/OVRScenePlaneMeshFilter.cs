@@ -1,11 +1,15 @@
+using Unity.Collections;
 using UnityEngine;
 
 /// <summary>
-/// This is a helper component. When added to a GameObject that represents a scene entity,
-/// such as a floor, ceiling, or desk, this component generates a mesh from its boundary vertices.
+/// Generates a mesh that represents a plane's boundary.
 /// </summary>
+/// <remarks>
+/// When added to a GameObject that represents a scene entity, such as a floor, ceiling, or desk, this component
+/// generates a mesh from its boundary vertices.
+/// </remarks>
 [RequireComponent(typeof(MeshFilter))]
-public class OVRPlaneMeshFilter : MonoBehaviour
+public class OVRScenePlaneMeshFilter : MonoBehaviour
 {
 	private MeshFilter _meshFilter;
 	private Mesh _mesh;
@@ -22,13 +26,16 @@ public class OVRPlaneMeshFilter : MonoBehaviour
 	private void CreateMeshFromBoundary()
 	{
 		var sceneAnchor = GetComponent<OVRSceneAnchor>();
-		if (sceneAnchor == null ||
-			!OVRPlugin.GetSpaceBoundary2D(sceneAnchor.Space, out var boundaryVertices))
-		{
-			return;
-		}
+		if (sceneAnchor == null) return;
 
-		_mesh.name = $"OVRPlaneMeshFilter {sceneAnchor.Space}";
-		OVRMeshGenerator.GenerateMesh(boundaryVertices, _mesh);
+		_mesh.name = $"OVRPlaneMeshFilter {sceneAnchor.Uuid}";
+
+		var boundary = OVRPlugin.GetSpaceBoundary2D(sceneAnchor.Space, Allocator.Temp);
+		if (!boundary.IsCreated) return;
+
+		using (boundary)
+		{
+			OVRMeshGenerator.GenerateMesh(boundary, _mesh);
+		}
 	}
 }

@@ -22,13 +22,14 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Xml;
+using Oculus.VR.Editor;
 
 public class OVRManifestPreprocessor
 {
     [MenuItem("Oculus/Tools/Create store-compatible AndroidManifest.xml", false, 100000)]
     public static void GenerateManifestForSubmission()
     {
-        var so = ScriptableObject.CreateInstance(typeof(OVRPluginUpdaterStub));
+        var so = ScriptableObject.CreateInstance(typeof(OVRPluginInfo));
         var script = MonoScript.FromScriptableObject(so);
         string assetPath = AssetDatabase.GetAssetPath(script);
         string editorDir = Directory.GetParent(assetPath).FullName;
@@ -37,7 +38,7 @@ public class OVRManifestPreprocessor
         if (!File.Exists(srcFile))
         {
             Debug.LogError("Cannot find Android manifest template for submission." +
-                " Please delete the OVR folder and reimport the Oculus Utilities.");
+                           " Please delete the OVR folder and reimport the Oculus Utilities.");
             return;
         }
 
@@ -172,6 +173,7 @@ public class OVRManifestPreprocessor
             // The following manifest entries are all handled through Oculus XR SDK Plugin
 #if !PRIORITIZE_OCULUS_XR_SETTINGS
             ApplyOculusXRManifestTags(doc, androidNamespaceURI, modifyIfFound);
+            ApplyTargetDevicesManifestTags(doc, androidNamespaceURI, true/*modifyIfFound*/);
 #endif
 
             doc.Save(destinationFile);
@@ -218,7 +220,7 @@ public class OVRManifestPreprocessor
             // Disable allowBackup in manifest and add Android NSC XML file
             "allowBackup", projectConfig.disableBackups ? "false" : "true",
             "networkSecurityConfig", projectConfig.enableNSCConfig && enableSecurity ? "@xml/network_sec_config" : null
-            );
+        );
     }
 
     private static void ApplyFeatureManfiestTags(XmlDocument doc, string androidNamespaceURI, bool modifyIfFound)
@@ -386,7 +388,72 @@ public class OVRManifestPreprocessor
             "uses-permission",
             "com.oculus.permission.TRACKED_KEYBOARD",
             trackedKeyboardEntryNeeded,
-        modifyIfFound);
+            modifyIfFound);
+
+        //============================================================================
+        // Body Tracking
+        // If Quest is the target device, add the bodytracking manifest tags if needed
+        var targetBodyTrackingSupport = OVRProjectConfig.GetProjectConfig().bodyTrackingSupport;
+        bool bodyTrackingEntryNeeded = OVRDeviceSelector.isTargetDeviceQuestFamily && (targetBodyTrackingSupport != OVRProjectConfig.FeatureSupport.None);
+
+        AddOrRemoveTag(doc,
+            androidNamespaceURI,
+            "/manifest",
+            "uses-feature",
+            "com.oculus.software.body_tracking",
+            bodyTrackingEntryNeeded,
+            modifyIfFound,
+            "required", (targetBodyTrackingSupport == OVRProjectConfig.FeatureSupport.Required) ? "true" : "false");
+        AddOrRemoveTag(doc,
+            androidNamespaceURI,
+            "/manifest",
+            "uses-permission",
+            OVRPermissionsRequester.GetPermissionId(OVRPermissionsRequester.Permission.BodyTracking),
+            bodyTrackingEntryNeeded,
+            modifyIfFound);
+
+        //============================================================================
+        // Face Tracking
+        var targetFaceTrackingSupport = OVRProjectConfig.GetProjectConfig().faceTrackingSupport;
+        bool faceTrackingEntryNeeded = OVRDeviceSelector.isTargetDeviceQuestFamily && (targetFaceTrackingSupport != OVRProjectConfig.FeatureSupport.None);
+
+        AddOrRemoveTag(doc,
+            androidNamespaceURI,
+            "/manifest",
+            "uses-feature",
+            "oculus.software.face_tracking",
+            faceTrackingEntryNeeded,
+            modifyIfFound,
+            "required", (targetFaceTrackingSupport == OVRProjectConfig.FeatureSupport.Required) ? "true" : "false");
+        AddOrRemoveTag(doc,
+            androidNamespaceURI,
+            "/manifest",
+            "uses-permission",
+            OVRPermissionsRequester.GetPermissionId(OVRPermissionsRequester.Permission.FaceTracking),
+            faceTrackingEntryNeeded,
+            modifyIfFound);
+
+        //============================================================================
+        // Eye Tracking
+        var targetEyeTrackingSupport = OVRProjectConfig.GetProjectConfig().eyeTrackingSupport;
+        bool eyeTrackingEntryNeeded = OVRDeviceSelector.isTargetDeviceQuestFamily && (targetEyeTrackingSupport != OVRProjectConfig.FeatureSupport.None);
+
+        AddOrRemoveTag(doc,
+            androidNamespaceURI,
+            "/manifest",
+            "uses-feature",
+            "oculus.software.eye_tracking",
+            eyeTrackingEntryNeeded,
+            modifyIfFound,
+            "required", (targetEyeTrackingSupport == OVRProjectConfig.FeatureSupport.Required) ? "true" : "false");
+        AddOrRemoveTag(doc,
+            androidNamespaceURI,
+            "/manifest",
+            "uses-permission",
+            OVRPermissionsRequester.GetPermissionId(OVRPermissionsRequester.Permission.EyeTracking),
+            eyeTrackingEntryNeeded,
+            modifyIfFound);
+
     }
 
 
@@ -402,25 +469,46 @@ public class OVRManifestPreprocessor
             modifyIfFound,
             "value", "true");
 
+        // Add VR intent filter tag in the manifest
+        AddOrRemoveTag(doc,
+            androidNamespaceURI,
+            "/manifest/application/activity/intent-filter",
+            "category",
+            "com.oculus.intent.category.VR",
+            required: true,
+            modifyIfFound: true);
+    }
+
+    private static void ApplyTargetDevicesManifestTags(XmlDocument doc, string androidNamespaceURI, bool modifyIfFound)
+    {
         // Add support devices manifest according to the target devices
         if (OVRDeviceSelector.isTargetDeviceQuestFamily)
         {
-            string targetDeviceValue = "quest";
-            if (OVRDeviceSelector.isTargetDeviceQuest && OVRDeviceSelector.isTargetDeviceQuest2)
+            string targetDeviceValue = "";
+            if (OVRDeviceSelector.isTargetDeviceQuest)
             {
-                targetDeviceValue = "quest|quest2";
+                if (string.IsNullOrEmpty(targetDeviceValue))
+                    targetDeviceValue = "quest";
+                else
+                    targetDeviceValue += "|quest";
             }
-            else if (OVRDeviceSelector.isTargetDeviceQuest2)
+            if (OVRDeviceSelector.isTargetDeviceQuest2)
             {
-                targetDeviceValue = "quest2";
+                if (string.IsNullOrEmpty(targetDeviceValue))
+                    targetDeviceValue = "quest2";
+                else
+                    targetDeviceValue += "|quest2";
             }
-            else if (OVRDeviceSelector.isTargetDeviceQuest)
+            if (OVRDeviceSelector.isTargetDeviceQuestPro)
             {
-                targetDeviceValue = "quest";
+                if (string.IsNullOrEmpty(targetDeviceValue))
+                    targetDeviceValue = "cambria";
+                else
+                    targetDeviceValue += "|cambria";
             }
-            else
+            if (string.IsNullOrEmpty(targetDeviceValue))
             {
-                Debug.LogError("Unexpected target devices");
+                Debug.LogError("Empty target devices");
             }
             AddOrRemoveTag(doc,
                 androidNamespaceURI,
@@ -431,15 +519,6 @@ public class OVRManifestPreprocessor
                 modifyIfFound,
                 "value", targetDeviceValue);
         }
-
-        // Add VR intent filter tag in the manifest
-        AddOrRemoveTag(doc,
-            androidNamespaceURI,
-            "/manifest/application/activity/intent-filter",
-            "category",
-            "com.oculus.intent.category.VR",
-            required: true,
-            modifyIfFound: true);
     }
 
     private static string ColorSpaceToManifestTag(OVRManager.ColorSpace colorSpace)

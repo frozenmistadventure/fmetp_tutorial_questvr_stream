@@ -44,7 +44,7 @@ using Device = UnityEngine.XR.XRDevice;
 /// <summary>
 /// Miscellaneous extension methods that any script can use.
 /// </summary>
-public static class OVRExtensions
+public static partial class OVRExtensions
 {
 	/// <summary>
 	/// Converts the given world-space transform to an OVRPose in tracking space.
@@ -88,7 +88,7 @@ public static class OVRExtensions
 
 		return ret;
 	}
-	
+
 	/// <summary>
 	/// Converts the given pose from tracking-space to head-space.
 	/// </summary>
