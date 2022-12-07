@@ -26,6 +26,9 @@ namespace FMETP
             {
                 TestObject.GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
                 OnInputGetKeyEvent.Invoke(true);
+
+                StartCoroutine(OculusHaptics.Vibrate(0.4f, 0.2f, controller));
+
             }
             if (OVRInput.GetUp(button, controller) || Input.GetKeyUp(KeyCode.Space))
             {

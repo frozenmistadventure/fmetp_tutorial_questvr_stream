@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/2_FMWebSocket(InternetStream)/Demo2_AutoIPDiscoveryWithFMNetwork/QuestVR_StreamSender(Auto_IP).unity
     guid: c74adedcf7a6045c6b89f6a78e7ddb58
   - enabled: 1
-    path: Assets/Scenes/3_RemoteDesktop(UDP)/QuestVR_RemoteControlQuest(UDP).unity
+    path: Assets/Scenes/3_RemoteDesktop(UDP)_WIP_NotReady/QuestVR_RemoteControlQuest(UDP).unity
     guid: acf8a92eb23a64837b6ba9baac14fb55
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6926076a3c3334053b41fa38d18736be, type: 2}
