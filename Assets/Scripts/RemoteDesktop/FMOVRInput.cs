@@ -16,25 +16,40 @@ namespace FMETP
         [SerializeField] private OVRInput.Controller controller = OVRInput.Controller.RTouch;
         [SerializeField] private OVRInput.Button button = OVRInput.Button.PrimaryIndexTrigger;
 
-        public UnityEventBool OnInputGetKeyEvent = new UnityEventBool();
+        public UnityEventInt OnInputGetKeyEvent = new UnityEventInt();
 
-        public
-        // Update is called once per frame
-        void Update()
+        [SerializeField] private int eventInt = 0;
+        [SerializeField] private KeyCode debugKeyCode = KeyCode.None;
+        private void Update()
         {
-            if (OVRInput.GetDown(button, controller) || Input.GetKeyDown(KeyCode.Space))
+            int _eventInt = 0;
+            if (OVRInput.GetDown(button, controller) || Input.GetKeyDown(debugKeyCode))
             {
-                TestObject.GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-                OnInputGetKeyEvent.Invoke(true);
-
-                StartCoroutine(OculusHaptics.Vibrate(0.4f, 0.2f, controller));
-
+                _eventInt = 1;
+#if !UNITY_EDITOR
+                StartCoroutine(OculusHaptics.Vibrate(0.4f, 0.1f, controller));
+#endif
             }
-            if (OVRInput.GetUp(button, controller) || Input.GetKeyUp(KeyCode.Space))
+            else if (OVRInput.GetUp(button, controller) || Input.GetKeyUp(debugKeyCode))
             {
-                TestObject.GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-                OnInputGetKeyEvent.Invoke(false);
+                _eventInt = 2;
             }
+            else if (OVRInput.Get(button, controller) || Input.GetKey(debugKeyCode))
+            {
+                _eventInt = 3;
+            }
+
+            if (eventInt != _eventInt)
+            {
+                eventInt = _eventInt;
+                OnInputGetKeyEvent.Invoke(eventInt);
+            }
+        }
+
+        private void OnDisable()
+        {
+            eventInt = 0;
+            OnInputGetKeyEvent.Invoke(eventInt);
         }
     }
 }
