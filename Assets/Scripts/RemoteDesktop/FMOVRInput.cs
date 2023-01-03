@@ -19,27 +19,27 @@ namespace FMETP
         public UnityEventInt OnInputGetKeyEvent = new UnityEventInt();
 
         [SerializeField] private int eventInt = 0;
-        [SerializeField] private KeyCode debugKeyCode = KeyCode.None;
         private void Update()
         {
             int _eventInt = 0;
-            if (OVRInput.GetDown(button, controller) || Input.GetKeyDown(debugKeyCode))
+            if (OVRInput.GetDown(button, controller))
             {
                 _eventInt = 1;
 #if !UNITY_EDITOR
                 StartCoroutine(OculusHaptics.Vibrate(0.4f, 0.1f, controller));
 #endif
             }
-            else if (OVRInput.GetUp(button, controller) || Input.GetKeyUp(debugKeyCode))
+            else if (OVRInput.GetUp(button, controller))
             {
                 _eventInt = 2;
             }
-            else if (OVRInput.Get(button, controller) || Input.GetKey(debugKeyCode))
+            else if (OVRInput.Get(button, controller))
             {
                 _eventInt = 3;
             }
 
-            if (eventInt != _eventInt)
+            //down(1) and up(2) only trigger once, while drag(3) can be triggered every frame
+            if (eventInt != _eventInt || _eventInt == 3)
             {
                 eventInt = _eventInt;
                 OnInputGetKeyEvent.Invoke(eventInt);
