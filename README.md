@@ -9,7 +9,14 @@
 <STRONG>FMETP STREAM</STRONG> share your Game View to any platforms.
 Adding Live Stream feature into your apps with ease!
 
-- Asset Store Link: https://assetstore.unity.com/packages/slug/202537
+- Asset Store Link: https://assetstore.unity.com/packages/slug/221362
+
+
+<STRONG>FM Remote Desktop</STRONG> is our latest Add-on feature, Quest 2 VR Desktop Control template is included in the github project.
+
+- Asset Store link: https://assetstore.unity.com/packages/slug/242857
+
+![FMRemoteDesktopCover](https://user-images.githubusercontent.com/59368610/211217499-3ff785bb-0229-45f6-9d96-a46593e61043.png)
 
 
 <STRONG>FM Polygon Japan</STRONG> is used for tutorial video only. You may check it out if you are interested.
