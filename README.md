@@ -25,6 +25,13 @@ Adding Live Stream feature into your apps with ease!
 
 Support: thelghome@gmail.com
 
-Updates: it is running at 90 FPS in game during the streaming in Unity2021.2.13f1 with Oculus SDK v37.
-![framerate_test-quest2](https://user-images.githubusercontent.com/59368610/157648771-9cd8e40d-3adb-4c4c-b3ab-234adfc641bb.jpg)
+<STRONG>Benchmark result(updates in 2023-11-03)</STRONG>
+- It is running at 120fps(or above) in game during the streaming(1920x1080@30fps) with Unity 2022.3.8f1, XR(v4.0.0), Oculus Integration SDK(v57)
+![framerate_test-quest2](https://github-production-user-asset-6210df.s3.amazonaws.com/59368610/280105297-dbe21293-6e58-47f3-8317-2c8eb6742464.jpg)
+
+<STRONG>Stereo Rendering Mode notes for the latest Oculus Integration SDK(v57)</STRONG>
+
+- tested MultiPass supports these Capture Modes: MainCam(Built-in), RenderCam(Built-in, URP)
+- tested Multiview supports these Capture Modes: RenderCam(Built-in)
+- if you are working on URP, please refer to scene "QuestVR_StreamSender(UDP)_renderCam(URP-reference)", and search "RenderCam(GameViewEncoder)" in the scene.
 
