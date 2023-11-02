@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/1_FMNetwork(LocalUDP)/QuestVR_StreamSender(UDP)_mainCam.unity
     guid: 4f152d1badb1d4aaaa298865a708bcc2
   - enabled: 1
-    path: Assets/Scenes/1_FMNetwork(LocalUDP)/QuestVR_StreamSender(UDP)_renderCam(URP-suggested).unity
+    path: Assets/Scenes/1_FMNetwork(LocalUDP)/QuestVR_StreamSender(UDP)_renderCam(URP-reference).unity
     guid: 9405f3972aa2c479f8e525c027f44003
   - enabled: 0
     path: Assets/Scenes/2_FMWebSocket(InternetStream)/Demo1_WebSocket/QuestVR_StreamSender(WebSocket).unity
