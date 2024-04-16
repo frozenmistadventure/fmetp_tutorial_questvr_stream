@@ -9,7 +9,7 @@
 <STRONG>FMETP STREAM</STRONG> share your Game View to any platforms.
 Adding Live Stream feature into your apps with ease!
 
-- Asset Store Link: https://assetstore.unity.com/packages/slug/221362
+- Asset Store Link: https://assetstore.unity.com/packages/slug/282061
 
 
 <STRONG>FM Remote Desktop</STRONG> is our latest Add-on feature, Quest 2 VR Desktop Control template is included in the github project.
@@ -34,4 +34,3 @@ Support: thelghome@gmail.com
 - tested MultiPass supports these Capture Modes: MainCam(Built-in), RenderCam(Built-in, URP)
 - tested Multiview supports these Capture Modes: RenderCam(Built-in)
 - if you are working on URP, please refer to scene "QuestVR_StreamSender(UDP)_renderCam(URP-reference)", and search "RenderCam(GameViewEncoder)" in the scene.
-

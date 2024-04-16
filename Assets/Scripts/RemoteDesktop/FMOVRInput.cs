@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FMETP
+namespace FMSolution
 {
     public class FMOVRInput : MonoBehaviour
     {

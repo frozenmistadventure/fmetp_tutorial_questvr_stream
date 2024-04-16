@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/1_FMNetwork(LocalUDP)/QuestVR_StreamSender(UDP)_mainCam.unity
     guid: 4f152d1badb1d4aaaa298865a708bcc2
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/1_FMNetwork(LocalUDP)/QuestVR_StreamSender(UDP)_renderCam(URP-reference).unity
     guid: 9405f3972aa2c479f8e525c027f44003
   - enabled: 0
@@ -22,4 +22,7 @@ EditorBuildSettings:
     guid: acf8a92eb23a64837b6ba9baac14fb55
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6926076a3c3334053b41fa38d18736be, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 809507f53308847b4a2d88a85f059f85, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3beb8dff091ba4f3abde5dfbe9999e96, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 38fcc530391b64a359a19e03e4b482ef, type: 2}
+  m_UseUCBPForAssetBundles: 0
