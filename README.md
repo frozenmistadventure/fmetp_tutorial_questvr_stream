@@ -25,6 +25,9 @@ Adding Live Stream feature into your apps with ease!
 
 Support: thelghome@gmail.com
 
+<STRONG>Benchmark result(updates in 2024-05-17)</STRONG>
+- Upgrade to the latest Meta XR Core SDK(v65), with Unity 2023.2.20f1, XR Plugin Management(v4.4.0)
+
 <STRONG>Benchmark result(updates in 2023-11-03)</STRONG>
 - It is running at 120fps(or above) in game during the streaming(1920x1080@30fps) with Unity 2022.3.8f1, XR(v4.0.0), Oculus Integration SDK(v57)
 ![framerate_test-quest2](https://github-production-user-asset-6210df.s3.amazonaws.com/59368610/280105297-dbe21293-6e58-47f3-8317-2c8eb6742464.jpg)
