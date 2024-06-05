@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/2_FMWebSocket(InternetStream)/Demo1_WebSocket/QuestVR_StreamSender(WebSocket)_mainCam.unity
     guid: 594031eb0953b4a84adc8867053070b3
   - enabled: 0
+    path: Assets/Scenes/2_FMWebSocket(InternetStream)/Demo1_WebSocket/QuestVR_StreamSender(WebSocket)_renderCam.unity
+    guid: afe10ad560c6942a7a6ee95f1e709165
+  - enabled: 0
     path: Assets/Scenes/2_FMWebSocket(InternetStream)/Demo2_AutoIPDiscoveryWithFMNetwork/QuestVR_StreamSender(Auto_IP).unity
     guid: c74adedcf7a6045c6b89f6a78e7ddb58
   - enabled: 0
