@@ -15,7 +15,8 @@ Adding Live Stream feature into your apps with ease!
 
 <STRONG>FM Remote Desktop</STRONG> is our latest Add-on feature, Quest 2 VR Desktop Control template is included in the github project.
 
-- Asset Store link: https://assetstore.unity.com/packages/slug/242857
+- Asset Store link(V2 compatible for FMETP STREAM 6): https://assetstore.unity.com/packages/slug/307908
+- Asset Store link(V1 compatible for FMETP STREAM V3, V4): https://assetstore.unity.com/packages/slug/242857
 
 ![FMRemoteDesktopCover](https://user-images.githubusercontent.com/59368610/211217499-3ff785bb-0229-45f6-9d96-a46593e61043.png)
 
