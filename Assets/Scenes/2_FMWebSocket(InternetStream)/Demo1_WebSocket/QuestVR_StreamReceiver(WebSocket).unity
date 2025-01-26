@@ -152,12 +152,12 @@ MonoBehaviour:
   EditorShowDecoded: 1
   EditorShowDesktopFrameInfo: 0
   EditorShowPairing: 1
-  EditorShowPreview: 0
+  EditorShowPreview: 1
   AsyncMode: 1
   DecoderDelay: 0
   ColorReductionLevel: 0
-  PreviewType: 0
-  PreviewRawImage: {fileID: 0}
+  PreviewType: 1
+  PreviewRawImage: {fileID: 1449027354}
   PreviewMeshRenderer: {fileID: 0}
   OnReceivedTextureEvent:
     m_PersistentCalls:
@@ -169,7 +169,7 @@ MonoBehaviour:
   DecodedWrapMode: 1
   Mono: 0
   Sharpen: 1
-  DeNoise: 1
+  DeNoise: 0
   label: 1001
   GZipMode: 1
   MediaThreadCount: 1
