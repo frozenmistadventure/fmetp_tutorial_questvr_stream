@@ -169,7 +169,7 @@ MonoBehaviour:
   DecodedWrapMode: 1
   Mono: 0
   Sharpen: 1
-  DeNoise: 1
+  DeNoise: 0
   label: 1001
   GZipMode: 2
   MediaThreadCount: 1
