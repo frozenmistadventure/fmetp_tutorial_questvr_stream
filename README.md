@@ -1,3 +1,7 @@
+# the latest updates(2025/03/31)
+- Passthrough camera stream example in here >>
+https://github.com/frozenmistadventure/fmetp_tutorial_questvr_passthrough
+
 # fmetp_tutorial_questvr_stream
 
 - The Main Branch syncs with the latest FMETP STREAM 6
