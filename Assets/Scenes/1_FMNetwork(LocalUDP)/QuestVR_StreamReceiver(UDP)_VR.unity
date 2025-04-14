@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 554012638}
-  m_IndirectSpecularColor: {r: 0.0004431699, g: 0.20599058, b: 0.3004469, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3180,6 +3180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 554012639}
   - component: {fileID: 554012638}
+  - component: {fileID: 554012640}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -3263,6 +3264,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: 30, z: 0}
+--- !u!114 &554012640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554012637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &574355503
 GameObject:
   m_ObjectHideFlags: 0
@@ -5070,6 +5094,7 @@ MonoBehaviour:
   EditorShownetworkedObjects: 0
   EditorShowReceiverEvents: 1
   EditorShowConnectionEvents: 0
+  ShowLog: 0
   AutoInit: 1
   NetworkType: 1
   Server: {fileID: 0}
@@ -5106,7 +5131,6 @@ MonoBehaviour:
     ClientIPList: []
     UseMainThreadSender: 1
   DebugStatus: 0
-  ShowLog: 0
   Status: 
   UIStatus: {fileID: 0}
   OnReceivedByteDataEvent:
@@ -7944,7 +7968,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8fcf812ed10db41798d2bdaa064fb8c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12150,7 +12174,6 @@ MonoBehaviour:
   MixedRealityOffsetX: 0
   MixedRealityOffsetY: 0
   ColorReductionLevel: 0
-  mat_source: {fileID: 0}
   CubemapResolution: 1024
   FMDesktopShowAdvancedOptions: 0
   FMDesktopRotation: 0
@@ -12190,7 +12213,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   label: 1001
+  OutputChunkSize: 1436
   dataLength: 0
+  fullScreenResolution: {x: 1280, y: 720}
+  RawTextureData: 
 --- !u!1 &4758144348280549484
 GameObject:
   m_ObjectHideFlags: 0
@@ -12571,6 +12597,7 @@ MonoBehaviour:
   mrcActivationMode: 0
   launchSimultaneousHandsControllersOnStartup: 0
   isInsightPassthroughEnabled: 0
+  shouldBoundaryVisibilityBeSuppressed: 0
   requestBodyTrackingPermissionOnStartup: 0
   requestFaceTrackingPermissionOnStartup: 0
   requestEyeTrackingPermissionOnStartup: 0
