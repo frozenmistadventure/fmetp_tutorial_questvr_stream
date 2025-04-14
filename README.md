@@ -1,3 +1,7 @@
+# other examples
+- passthrough(camera access) mixed reality template >>
+https://github.com/frozenmistadventure/fmetp_tutorial_questvr_passthrough
+
 # fmetp_tutorial_questvr_stream
 
 <STRONG>fmetp_tutorial_questvr_stream</STRONG> is a Oculus VR Streaming tutorial template for <STRONG>FMETP STREAM</STRONG>, it means that FMETP STREAM is required.
@@ -38,8 +42,16 @@ Support: thelghome@gmail.com
 - NOTES for FMETP STREAM V6 (*updated 2025/01/14)
 - It's fully compatible with URP VR from FMETP STREAM 6. You can use MainCam mode in URP VR headset for both Meta Quest and Apple Vision Pro from V6.
 - You can checkout this github branch "BranchURP" and find the demo scene "QuestVR_StreamSender(UDP)_mainCam(URP-FMETP-STREAM6)"
-- other version:
-- NOTES for FMETP STREAM V3, V4
-- tested MultiPass supports these Capture Modes: MainCam(Built-in), RenderCam(Built-in, URP)
-- tested Multiview supports these Capture Modes: RenderCam(Built-in)
-- if you are working on URP, please refer to scene "QuestVR_StreamSender(UDP)_renderCam(URP-reference)", and search "RenderCam(GameViewEncoder)" in the scene.
+
+
+<STRONG>Older version support(Legacy V4, V3 notes):</STRONG>
+- please refer to BranchV4, BranchURPV4
+- https://github.com/frozenmistadventure/fmetp_tutorial_questvr_stream/tree/BranchV4
+- https://github.com/frozenmistadventure/fmetp_tutorial_questvr_stream/tree/BranchURPV4
+- tested MultiPass supports these Capture Modes: MainCam(Built-in, URP), RenderCam(Built-in, URP)
+- tested Multiview supports these Capture Modes: MainCam(URP), RenderCam(Built-in, URP)
+
+<STRONG>The Quest VR URP MainCam mode supported from V4.120 (Updated: 15/04/2025)</STRONG>
+- please refer to scene "QuestVR_StreamSender(UDP)_mainCam" if you are using V4.120 or later version
+- <strike>if you are working on URP, please refer to scene "QuestVR_StreamSender(UDP)_renderCam(URP-reference)", and search "RenderCam(GameViewEncoder)" in the scene.
+</strike>
