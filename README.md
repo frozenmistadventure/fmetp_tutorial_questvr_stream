@@ -35,7 +35,7 @@ Support: thelghome@gmail.com
 <STRONG>Stereo Rendering Mode notes for the latest Oculus Integration SDK(v57)</STRONG>
 
 - tested MultiPass supports these Capture Modes: MainCam(Built-in, URP), RenderCam(Built-in, URP)
-- tested Multiview supports these Capture Modes: RenderCam(Built-in, URP)
+- tested Multiview supports these Capture Modes: MainCam(URP), RenderCam(Built-in, URP)
 
 <STRONG>The Quest VR URP MainCam mode supported from V4.120 (Updated: 15/04/2025)</STRONG>
 - please refer to scene "QuestVR_StreamSender(UDP)_mainCam" if you are using V4.120 or later version
