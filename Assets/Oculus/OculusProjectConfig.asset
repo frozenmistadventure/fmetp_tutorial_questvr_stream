@@ -25,13 +25,18 @@ MonoBehaviour:
   faceTrackingSupport: 0
   eyeTrackingSupport: 0
   virtualKeyboardSupport: 0
+  colocationSessionSupport: 0
   sceneSupport: 0
   boundaryVisibilitySupport: 0
   disableBackups: 1
   enableNSCConfig: 1
   securityXmlPath: 
+  horizonOsSdkEnabled: 0
+  minHorizonOsSdkVersion: 68
+  targetHorizonOsSdkVersion: 74
   skipUnneededShaders: 0
   enableIL2CPPLTO: 0
+  removeGradleManifest: 1
   focusAware: 1
   requiresSystemKeyboard: 0
   experimentalFeaturesEnabled: 0
@@ -41,5 +46,3 @@ MonoBehaviour:
   systemSplashScreen: {fileID: 0}
   systemSplashScreenType: 0
   _systemLoadingScreenBackground: 0
-  ovrPluginMd5Win64: aa662cdf2f901973cc80422bf87a766dbf3ee1007e6a1db9e5469a1db6c62ff2
-  ovrPluginMd5Android: b191da349d7c05c640e5f41721d8abdf288025cfa4bbd5aaa1108d448307336c
