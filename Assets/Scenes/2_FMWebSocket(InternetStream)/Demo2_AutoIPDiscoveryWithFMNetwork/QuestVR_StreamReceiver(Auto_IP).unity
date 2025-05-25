@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 281634391}
-  - component: {fileID: 281634390}
+  - component: {fileID: 281634392}
   m_Layer: 0
   m_Name: GameViewDecoder
   m_TagString: Untagged
@@ -136,45 +136,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &281634390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281634389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8112ebf7007407ba81465ecae68e75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EditorShowSettings: 1
-  EditorShowDecoded: 1
-  EditorShowDesktopFrameInfo: 0
-  EditorShowPairing: 1
-  FastMode: 1
-  AsyncMode: 1
-  DecoderDelay: 0
-  ReceivedTexture2D: {fileID: 0}
-  ReceivedRenderTexture: {fileID: 0}
-  ColorReductionLevel: 0
-  PreviewType: 0
-  PreviewRawImage: {fileID: 0}
-  PreviewMeshRenderer: {fileID: 0}
-  OnReceivedTextureEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnReceivedDesktopFrameRectEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  Mono: 0
-  Sharpen: 1
-  DeNoise: 1
-  DecodedFilterMode: 2
-  DecodedWrapMode: 1
-  MatColorAdjustment: {fileID: 1946247934}
-  label: 1001
-  GZipMode: 0
 --- !u!4 &281634391
 Transform:
   m_ObjectHideFlags: 0
@@ -190,6 +151,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &281634392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281634389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a8112ebf7007407ba81465ecae68e75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EditorShowSettings: 1
+  EditorShowDecoded: 1
+  EditorShowDesktopFrameInfo: 0
+  EditorShowPairing: 1
+  EditorShowPreview: 1
+  AsyncMode: 1
+  TryHardwareAcceleration: 1
+  DecoderDelay: 0
+  ColorReductionLevel: 0
+  PreviewType: 1
+  PreviewRawImage: {fileID: 1449027354}
+  PreviewMeshRenderer: {fileID: 0}
+  OnReceivedTextureEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReceivedDesktopFrameRectEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  DecodedFilterMode: 1
+  DecodedWrapMode: 1
+  Mono: 0
+  Sharpen: 0
+  DeNoise: 0
+  Dither: 0.007843138
+  label: 1001
+  GZipMode: 2
+  VPXVersion: 8
+  MediaThreadCount: 4
 --- !u!1 &334881047
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,6 +230,7 @@ MonoBehaviour:
   EditorShownetworkedObjects: 0
   EditorShowReceiverEvents: 1
   EditorShowConnectionEvents: 0
+  ShowLog: 1
   AutoInit: 1
   NetworkType: 0
   Server: {fileID: 0}
@@ -236,14 +238,14 @@ MonoBehaviour:
   DataStream: {fileID: 0}
   ServerSettings:
     ServerListenPort: 3333
-    UseAsyncListener: 0
+    UDPListenerType: 1
     UseMainThreadSender: 0
     SupportMulticast: 0
     MulticastAddress: 239.255.255.255
     ConnectionCount: 0
   ClientSettings:
     ClientListenPort: 3334
-    UseAsyncListener: 0
+    UDPListenerType: 1
     UseMainThreadSender: 0
     ForceBroadcast: 0
     SupportMulticast: 0
@@ -256,6 +258,7 @@ MonoBehaviour:
     DataStreamProtocol: 0
     ClientListenPort: 3001
     UDPTransferType: 0
+    UDPListenerType: 0
     TCPSocketType: 0
     MulticastAddress: 239.255.255.255
     IsConnected: 0
@@ -264,7 +267,6 @@ MonoBehaviour:
     ClientIPList: []
     UseMainThreadSender: 1
   DebugStatus: 1
-  ShowLog: 1
   Status: 
   UIStatus: {fileID: 0}
   OnReceivedByteDataEvent:
@@ -682,6 +684,8 @@ MonoBehaviour:
   EditorShowNetworkObjects: 0
   EditorShowReceiverEvents: 1
   EditorShowConnectionEvents: 0
+  EditorShowNetworkViews: 1
+  ShowLog: 1
   AutoInit: 1
   Initialised: 0
   NetworkType: 0
@@ -704,8 +708,8 @@ MonoBehaviour:
   OnReceivedByteDataEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 281634390}
-        m_TargetAssemblyTypeName: FMETP.GameViewDecoder, Assembly-CSharp
+      - m_Target: {fileID: 281634392}
+        m_TargetAssemblyTypeName: FMSolution.FMETP.GameViewDecoder, Assembly-CSharp
         m_MethodName: Action_ProcessImageData
         m_Mode: 0
         m_Arguments:
@@ -740,7 +744,9 @@ MonoBehaviour:
   OnJoinedRoomEvent:
     m_PersistentCalls:
       m_Calls: []
-  ShowLog: 1
+  NetworkViews:
+    Keys: 
+    Values: []
 --- !u!4 &1571228277
 Transform:
   m_ObjectHideFlags: 0
@@ -858,40 +864,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!21 &1946247934
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/FMETPColorAdjustment
-  m_Shader: {fileID: 4800000, guid: 8efd175de28eb49ddbf9cbf8155d61ba, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _Brightness: 1
-    - _DeNoise: 0
-    m_Colors: []
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
